@@ -14,7 +14,7 @@ build:
   skip: true  # [win and (rust_compiler == 'rust-gnu')]
   # Windows 32-bit is not supported upstream via readme:
   # https://github.com/benfred/py-spy#does-py-spy-support-32-bit-windows-integrate-with-pypy-work-with-usc2-versions-of-python2
-  skip: true  # [win32]
+  skip: true  # [s390x or win32]
   # Builds on Linux need a newer glibc: https://github.com/conda-forge/conda-forge.github.io/issues/900
   missing_dso_whitelist:   # [osx]
     - /usr/lib/libresolv.9.dylib  # [osx]
