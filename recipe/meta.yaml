@@ -28,7 +28,10 @@ requirements:
     - libunwind  # [linux and x86_64]
 
 test:
+  requires:
+    - pip
   commands:
+    - pip check
     - py-spy --help
 
 about:
