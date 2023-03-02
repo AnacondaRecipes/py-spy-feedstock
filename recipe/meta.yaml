@@ -1,4 +1,4 @@
-{% set version = "0.3.11" %}
+{% set version = "0.3.14" %}
 
 package:
   name: py-spy
@@ -6,15 +6,13 @@ package:
 
 source:
   url: https://github.com/benfred/py-spy/archive/v{{ version }}.tar.gz
-  sha256: 094cfb80e2c099763453fc39cfa9c46cfa423afa858268c6a7bc0d867763b014
+  sha256: c01da8b74be0daba79781cfc125ffcd3df3a0d090157fe0081c71da2f6057905
 
 build:
-  number: 1
+  number: 0
   # this is producing multiple outputs, one of which is failing.
   skip: true  # [win and (rust_compiler == 'rust-gnu')]
-  # Windows 32-bit is not supported upstream via readme:
-  # https://github.com/benfred/py-spy#does-py-spy-support-32-bit-windows-integrate-with-pypy-work-with-usc2-versions-of-python2
-  skip: true  # [s390x or win32]
+  skip: true  # [s390x]
   # Builds on Linux need a newer glibc: https://github.com/conda-forge/conda-forge.github.io/issues/900
   missing_dso_whitelist:   # [osx]
     - /usr/lib/libresolv.9.dylib  # [osx]
@@ -30,15 +28,27 @@ requirements:
     - libunwind  # [linux and x86_64]
 
 test:
+  requires:
+    - pip
   commands:
+    - pip check
     - py-spy --help
 
 about:
   home: https://github.com/benfred/py-spy
   license: MIT
-  summary: Sampling profiler for Python programs
   license_family: MIT
   license_file: LICENSE
+  summary: Sampling profiler for Python programs
+  description: |
+    py-spy is a sampling profiler for Python programs. 
+    It lets you visualize what your Python program is spending time on 
+    without restarting the program or modifying the code in any way. 
+    py-spy is extremely low overhead: it is written in Rust for speed 
+    and doesn't run in the same process as the profiled Python program. 
+    This means py-spy is safe to use against production Python code.
+  dev_url: https://github.com/benfred/py-spy
+  doc_url: https://github.com/benfred/py-spy
 
 extra:
   recipe-maintainers:
