@@ -9,7 +9,7 @@ source:
   sha256: c01da8b74be0daba79781cfc125ffcd3df3a0d090157fe0081c71da2f6057905
 
 build:
-  number: 0
+  number: 1
   # this is producing multiple outputs, one of which is failing.
   skip: true  # [win and (rust_compiler == 'rust-gnu')]
   skip: true  # [s390x]
@@ -23,7 +23,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
   host:
-    - libunwind  # [linux and x86_64]
+    - libunwind 1.5.0  # [linux and x86_64]
   run:
     - libunwind  # [linux and x86_64]
 
