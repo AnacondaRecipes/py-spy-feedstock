@@ -29,6 +29,8 @@ test:
   requires:
     - pip
     - pytest  # [not osx]
+    # For some reason we need to pin specific version to run the tests.
+    # Error: Failed to find python version from target process
     - python 3.12  # [not osx]
   commands:
     - pip check
