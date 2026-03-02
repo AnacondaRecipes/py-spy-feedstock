@@ -19,7 +19,6 @@ build:
 
 requirements:
   build:
-    # - sysroot_linux-64 2.17  # [linux64]
     - {{ stdlib("c") }}
     - {{ compiler('c') }}
     - {{ compiler('rust') }}
@@ -29,7 +28,7 @@ requirements:
     - python
     - maturin >=1.0,<2.0
     # https://github.com/benfred/py-spy/blob/v0.4.1/README.md?plain=1#L25-L27
-    - ucrt64-libunwind  # [win]
+    # - ucrt64-libunwind  # [win]
     - libunwind {{ libunwind }} # [linux64]
   run:
     # Version through run_exports
@@ -45,7 +44,7 @@ test:
     - pip check
     - py-spy --help
     # This program requires root on OSX.
-    - python -m unittest tests/integration_test.py
+    - pytest -v tests/integration_test.py
 
 about:
   home: https://github.com/benfred/py-spy
