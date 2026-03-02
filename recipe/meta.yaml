@@ -18,22 +18,23 @@ requirements:
     - {{ compiler('rust') }}
     - cargo-bundle-licenses
   host:
-    - libunwind {{ libunwind }} # [linux64]
+    - libunwind {{ libunwind }}  # [linux64]
   run:
     # Version through run_exports
     - libunwind  # [linux64]
 
 test:
-  source_files:
-    - tests
+  source_files:  # [not osx]
+    - tests  # [not osx]
   requires:
     - pip
-    - pytest
+    - pytest  # [not osx]
+    - python 3.12  # [not osx]
   commands:
     - pip check
     - py-spy --help
     # Those tests require root on OSX.
-    - pytest -v tests/integration_test.py  # [not osx]
+    - python -m unittest tests/integration_test.py  # [not osx]
 
 about:
   home: https://github.com/benfred/py-spy
