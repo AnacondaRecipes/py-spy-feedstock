@@ -18,9 +18,6 @@ requirements:
     - {{ compiler('rust') }}
     - cargo-bundle-licenses
   host:
-    - pip
-    - python
-    - maturin >=1.0,<2.0
     - libunwind {{ libunwind }} # [linux64]
   run:
     # Version through run_exports
@@ -32,13 +29,11 @@ test:
   requires:
     - pip
     - pytest
-    # Same Python as build so py-spy can detect version in target process (BSS layout).
-    - python
   commands:
     - pip check
     - py-spy --help
-    # This program requires root on OSX.
-    - pytest -v tests/integration_test.py
+    # Those tests require root on OSX.
+    - pytest -v tests/integration_test.py  # [not osx]
 
 about:
   home: https://github.com/benfred/py-spy
