@@ -10,12 +10,6 @@ source:
   sha256: 6abc303d4e2db30d472997838f83d547a990df7747e1d327249a757863ee9225
 build:
   number: 0
-  # this is producing multiple outputs, one of which is failing.
-  # skip: true  # [win and (rust_compiler == 'rust-gnu')]
-  # skip: true  # [s390x]
-  # Builds on Linux need a newer glibc: https://github.com/conda-forge/conda-forge.github.io/issues/900
-  # missing_dso_whitelist:   # [osx]
-    # - /usr/lib/libresolv.9.dylib  # [osx]
 
 requirements:
   build:
@@ -27,8 +21,6 @@ requirements:
     - pip
     - python
     - maturin >=1.0,<2.0
-    # https://github.com/benfred/py-spy/blob/v0.4.1/README.md?plain=1#L25-L27
-    # - ucrt64-libunwind  # [win]
     - libunwind {{ libunwind }} # [linux64]
   run:
     # Version through run_exports
@@ -40,6 +32,8 @@ test:
   requires:
     - pip
     - pytest
+    # Same Python as build so py-spy can detect version in target process (BSS layout).
+    - python
   commands:
     - pip check
     - py-spy --help
