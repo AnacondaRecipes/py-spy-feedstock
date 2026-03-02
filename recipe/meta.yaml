@@ -1,5 +1,5 @@
+{% set name = "py-spy" %}
 {% set version = "0.4.1" %}
-{% name = "py-spy" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/benfred/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: c01da8b74be0daba79781cfc125ffcd3df3a0d090157fe0081c71da2f6057905
+  sha256: 6abc303d4e2db30d472997838f83d547a990df7747e1d327249a757863ee9225
 build:
   number: 0
   # this is producing multiple outputs, one of which is failing.
@@ -25,6 +25,8 @@ requirements:
     - {{ compiler('rust') }}
     - cargo-bundle-licenses
   host:
+    - pip
+    - python
     - maturin >=1.0,<2.0
     # https://github.com/benfred/py-spy/blob/v0.4.1/README.md?plain=1#L25-L27
     - ucrt64-libunwind  # [win]
@@ -34,11 +36,16 @@ requirements:
     - libunwind  # [linux64]
 
 test:
+  source_files:
+    - tests
   requires:
     - pip
+    - pytest
   commands:
     - pip check
     - py-spy --help
+    # This program requires root on OSX.
+    - python -m unittest tests/integration_test.py
 
 about:
   home: https://github.com/benfred/py-spy
