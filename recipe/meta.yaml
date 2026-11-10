@@ -1,5 +1,5 @@
 {% set name = "py-spy" %}
-{% set version = "0.4.1" %}
+{% set version = "0.4.3" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,8 @@ package:
 
 source:
   url: https://github.com/benfred/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 6abc303d4e2db30d472997838f83d547a990df7747e1d327249a757863ee9225
+  sha256: dc73c284a54ace20e62cf3f032c98bbdda5e36ae57795d3b0e538cd3ba2eecef
+
 build:
   number: 0
 
@@ -19,9 +20,13 @@ requirements:
     - cargo-bundle-licenses
   host:
     - libunwind {{ libunwind }}  # [linux64]
+    - python
+    - maturin >=1.0,<2.0
+    - pip
   run:
     # Version through run_exports
     - libunwind  # [linux64]
+    - python
 
 test:
   source_files:  # [not osx]
@@ -45,11 +50,11 @@ about:
   license_file: LICENSE
   summary: Sampling profiler for Python programs
   description: |
-    py-spy is a sampling profiler for Python programs. 
-    It lets you visualize what your Python program is spending time on 
-    without restarting the program or modifying the code in any way. 
-    py-spy is extremely low overhead: it is written in Rust for speed 
-    and doesn't run in the same process as the profiled Python program. 
+    py-spy is a sampling profiler for Python programs.
+    It lets you visualize what your Python program is spending time on
+    without restarting the program or modifying the code in any way.
+    py-spy is extremely low overhead: it is written in Rust for speed
+    and doesn't run in the same process as the profiled Python program.
     This means py-spy is safe to use against production Python code.
   dev_url: https://github.com/benfred/py-spy
   doc_url: https://github.com/benfred/py-spy
